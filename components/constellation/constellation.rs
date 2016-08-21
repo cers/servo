@@ -1618,12 +1618,12 @@ impl<Message, LTF, STF> Constellation<Message, LTF, STF>
         let result = match self.pipelines.get(&pipeline_id) {
             None => return self.compositor_proxy.send(ToCompositorMsg::ChangePageTitle(pipeline_id, None)),
             Some(pipeline) => {
-                assert!(!pipeline.is_pending);
-                if !pipeline.is_pending {
+                // assert!(!pipeline.is_pending);
+                // if !pipeline.is_pending {
                     pipeline.script_chan.send(ConstellationControlMsg::GetTitle(pipeline_id))
-                } else {
-                    return warn!("Tried to get title for pending pipeline: {:?}", pipeline_id);
-                }
+                // } else {
+                    // return warn!("Tried to get title for pending pipeline: {:?}", pipeline_id);
+                // }
             },
         };
         if let Err(e) = result {
